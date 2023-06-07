@@ -14,6 +14,7 @@ body{
     align-items: center;
     width:100%;
     margin-top: 100px;
+    text-align: center;
 }
 
 .calculator{
@@ -32,7 +33,7 @@ body{
 }
 
 .calculator-display{
-    height: 74px;
+    height: 62px;
     border: 0px;
     background: #3B3B3B;
     border-radius: 0.725rem;
@@ -75,4 +76,23 @@ footer{
     text-shadow: -1px 1.5px 0px rgba(0,0,0,0.4);
     font-family: monospace;
     font-size: 14px;
+}
+
+#previous{
+    display: block;
+    height: 28px;
+    text-align: right;
+    color: white;
+    font-size: 1.325rem;
+    font-weight: 400;
+    width: 100%;
+}
+
+#current{
+    display: block;
+    font-size: 1.625rem;
+    font-weight: 600;
+    text-align: right;
+    color: aquamarine;
+    width: 100%;
 }
