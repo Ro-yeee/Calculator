@@ -12,6 +12,11 @@ const operatorButton = document.querySelectorAll("[data-operator]")
 const equalButton = document.querySelector("[data-equal]")
 const pointButton = document.querySelector("[data-point]")
 
+// adding popup effect to buttons when we move the mouse over it
+const allbuttons = document.querySelectorAll("button")
+allbuttons.forEach(button => button.addEventListener('mouseenter', () => button.classList.add("hover")))
+allbuttons.forEach(button => button.addEventListener('mouseleave', () => button.classList.remove("hover")))
+
 // Getting both the current and previous screen
 const previousScreen = document.getElementById("previous")
 const currentScreen = document.getElementById("current")
@@ -101,3 +106,4 @@ const evaluate = () =>{
     previousScreen.textContent = previousScreen.textContent + secondNum +" ="
     currentOperation = null
 }
+
