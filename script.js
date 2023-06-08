@@ -17,11 +17,14 @@ const previousScreen = document.getElementById("previous")
 const currentScreen = document.getElementById("current")
 
 // functions for all the 5 arithmatic operations
-const add = () => +firstNum + +secondNum
-const sub = () => +firstNum - +secondNum
-const mul = () => +firstNum * +secondNum
-const div = () => +firstNum / +secondNum
-const percentage = () => (+firstNum * +secondNum)/100
+const add = () => Round(+firstNum + +secondNum)
+const sub = () => Round(+firstNum - +secondNum)
+const mul = () => Round(+firstNum * +secondNum)
+const div = () => Round(+firstNum / +secondNum)
+const percentage = () => Round((+firstNum * +secondNum)/100)
+
+// function to round to 3 decimal points
+const Round = (num) => Math.round(num * 1000)/1000 
 
 // Adding event listners to all the special buttons
 allclearButton.addEventListener('click', () => clearAll())
@@ -44,6 +47,7 @@ const clearAll = () =>{
 
 // function for adding a point
 const addPoint = () =>{
+    if(currentScreen.textContent === "Infinity") clearAll()
     if(needScreenReset) screenReset()
     if(currentScreen.textContent === "") currentScreen.textContent = 0
     if(currentScreen.textContent.includes(".")) return
@@ -52,17 +56,18 @@ const addPoint = () =>{
 
 // function for deleting the previous element
 const backspace = () =>{
+    if(currentScreen.textContent === "Infinity") clearAll()
    currentScreen.textContent = currentScreen.textContent.slice(0,-1)
    if( currentScreen.textContent === "") currentScreen.textContent = "0"
 }
 
 
-// function for performing the evaluation
-const evaluate = () => {
+// function for performing the operation
+const operate = () => {
     if(currentOperation === '+') result = add()
     else if(currentOperation === '-') result = sub()
     else if(currentOperation === '×') result = mul()
-    else if(currentOperation === "÷") result = +secondNum === 0 ? "INFINITY" : div()
+    else if(currentOperation === "÷") result = +secondNum === 0 ? "Infinity" : div()
     else if(currentOperation === "%") result = percentage()
 } 
 
@@ -74,23 +79,25 @@ const screenReset = () =>{
 
 // funtion for appending the numbers to current Screen
 const appendNumber = (number) =>{
+    if(currentScreen.textContent === "Infinity") clearAll()
     if(currentScreen.textContent === "0" || needScreenReset) screenReset()
     currentScreen.textContent = currentScreen.textContent + number
 }
 
 const setOperation = (operation) =>{
-    if(currentOperation === null){
-        firstNum = currentScreen.textContent
-        currentOperation = operation
-        previousScreen.textContent = currentScreen.textContent +" "+ currentOperation
-        needScreenReset = true
-    }else{
-        secondNum = currentScreen.textContent
-        evaluate()
-        currentOperation = operation
-        currentScreen.textContent = result
-        firstNum = result
-        previousScreen.textContent = currentScreen.textContent +" "+ currentOperation
-        needScreenReset = true
-    }
+    if(currentScreen.textContent === "Infinity") clearAll()
+    if(currentOperation !== null) evaluate()
+    firstNum = currentScreen.textContent
+    currentOperation = operation
+    previousScreen.textContent = currentScreen.textContent +" "+ currentOperation
+    needScreenReset = true
+}
+
+const evaluate = () =>{
+    if(currentOperation === null || needScreenReset) return
+    secondNum = currentScreen.textContent
+    operate()
+    currentScreen.textContent = result
+    previousScreen.textContent = previousScreen.textContent + secondNum +" ="
+    currentOperation = null
 }
