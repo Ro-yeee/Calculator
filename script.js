@@ -12,10 +12,16 @@ const operatorButton = document.querySelectorAll("[data-operator]")
 const equalButton = document.querySelector("[data-equal]")
 const pointButton = document.querySelector("[data-point]")
 
-// adding popup effect to buttons when we move the mouse over it
+// Getting both the current and previous screen
+const previousScreen = document.getElementById("previous")
+const currentScreen = document.getElementById("current")
+
+// adding popup effect to all buttons when we move the mouse over it
 const allbuttons = document.querySelectorAll("button")
 allbuttons.forEach(button => button.addEventListener('mouseenter', () => button.classList.add("hover")))
 allbuttons.forEach(button => button.addEventListener('mouseleave', () => button.classList.remove("hover")))
+
+// adding color change effect to special buttons
 allclearButton.addEventListener('mouseenter', () => allclearButton.classList.add("allclear"))
 allclearButton.addEventListener('mouseleave', () => allclearButton.classList.remove("allclear"))
 clearButton.addEventListener('mouseenter', () => clearButton.classList.add("clear"))
@@ -25,9 +31,6 @@ equalButton.addEventListener('mouseleave', () => equalButton.classList.remove("e
 operatorButton.forEach(button => button.addEventListener('mouseenter', () => button.classList.add("operator")))
 operatorButton.forEach(button => button.addEventListener('mouseleave', () => button.classList.remove("operator")))
 
-// Getting both the current and previous screen
-const previousScreen = document.getElementById("previous")
-const currentScreen = document.getElementById("current")
 
 // functions for all the 5 arithmatic operations
 const add = () => Round(+firstNum + +secondNum)
@@ -58,7 +61,7 @@ const clearAll = () =>{
     currentScreen.textContent = 0
 }
 
-// function for adding a point
+// function for adding a decimal point
 const addPoint = () =>{
     if(currentScreen.textContent === "Infinity") clearAll()
     if(needScreenReset) screenReset()
@@ -97,6 +100,7 @@ const appendNumber = (number) =>{
     currentScreen.textContent = currentScreen.textContent + number
 }
 
+// function for setting the operation
 const setOperation = (operation) =>{
     if(currentScreen.textContent === "Infinity") clearAll()
     if(currentOperation !== null) evaluate()
@@ -106,6 +110,7 @@ const setOperation = (operation) =>{
     needScreenReset = true
 }
 
+// function for evaluating the operation
 const evaluate = () =>{
     if(currentOperation === null || needScreenReset) return
     secondNum = currentScreen.textContent
@@ -113,5 +118,6 @@ const evaluate = () =>{
     currentScreen.textContent = result
     previousScreen.textContent = previousScreen.textContent + secondNum +" ="
     currentOperation = null
+    needScreenReset = true
 }
 
