@@ -110,7 +110,7 @@ const setOperation = (operation) =>{
     needScreenReset = true
 }
 
-// function for evaluating the operationg
+// function for evaluating the operation
 const evaluate = () =>{
     if(currentOperation === null || needScreenReset) return
     secondNum = currentScreen.textContent
